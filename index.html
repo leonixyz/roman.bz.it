@@ -47,6 +47,8 @@
 				width: 100%;
 				text-align: center;
 				box-shadow: 5px 0px 15px #888;
+				position: relative;
+				z-index: 10;
 			}
 			#Logo {
 				position: relative;
@@ -61,6 +63,16 @@
 				bottom: 15px;
 				width: 100%;
 			}
+			#ToTopLink {
+				display: block;
+				position: fixed;
+				bottom: 15px;
+				right: 15px;
+				z-index: 5;
+			}
+			.hidden {
+				visibility: hidden;
+			}
 			.picture-box {
 				text-align: center;
 				padding: 10% 0;
@@ -69,9 +81,14 @@
 			.picture-box.alt {
 				background-color: #eee;
 			}
+			.picture-box a {
+				display: inline-block;
+			}
 		</style>
 	</head>
 	<body>
+		<a name="top" class="hidden"></a>
+
 		<header id="MainHeader">
 			<div id="Logo">
 				<img id="LogoSVG" src="./img/logo.svg" alt="Giulio Roman" onerror="this.src='./img/logo.png'"><br>
@@ -85,9 +102,13 @@
 				<img src="./img/arrow-down.png" alt="to content">
 			</a> 
 		</header>
-		<main>
-			<a name="content"></a>
 
+		<a id="ToTopLink" href="#top">
+			<img src="./img/arrow-up.png" alt="to top">
+		</a> 
+
+		<main>
+			<a name="content" class="hidden">My pictures</a>
 			<div class="picture-box">
 				<a href="./img/s_DSC_0636.jpg" data-lightbox="best-images" data-title="Kalmtal waterfall #1">
 					<img src="./img/t_DSC_0636.jpg">
@@ -194,6 +215,7 @@
 				</a>
 			</div>
 			<div class="picture-box alt">
+				<span class="helper"></spann>
 				<a href="./img/s_DSC_1030.jpg" data-lightbox="best-images" data-title="Mount Ortler">
 					<img src="./img/t_DSC_1030.jpg">
 				</a>
