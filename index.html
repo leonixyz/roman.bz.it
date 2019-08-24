@@ -42,7 +42,7 @@
 				border: 1px solid #888;
 				border-radius: 1em;
 				padding: 0.3em 0.3em;
-				margin: 0.1em;
+				margin: 0.1em -0.05em;
 				opacity: 0.5;
 				display: inline-block;
 				vertical-align: middle;
@@ -54,7 +54,7 @@
 				opacity: 0.85;
 			}
 
-			#section_Info {
+			.overlay {
 				box-sizing: border-box;
 				background-color: white;
 				padding: 1em;
@@ -72,9 +72,17 @@
 				padding-bottom: 4em;
 			}
 
-			#section_Info main section {
+			.overlay main section {
 				clear: both;
 				padding-top: 1em;
+			}
+
+			#section_Filters main {
+				position: absolute;
+				bottom: 0;
+				left: 50%;
+				padding-bottom: 3em;
+				font-size: 1.5em;
 			}
 
 			#preloadingArea {
@@ -146,32 +154,31 @@
 			} 
 
 			var pictures = [
-				{filename: '1.jpg', focalpoint: {x:55, y:70}},
-				{filename: '2.jpg', focalpoint: {x:33, y:80}},
-				{filename: '3.jpg', focalpoint: {x:50, y:50}},
-				{filename: '4.jpg', focalpoint: {x:45, y:65}},
-				{filename: '5.jpg', focalpoint: {x:20, y:50}},
-				{filename: '6.jpg', focalpoint: {x:55, y:45}},
-				{filename: '7.jpg', focalpoint: {x:25, y:50}},
-				{filename: '8.jpg', focalpoint: {x:80, y:60}},	
-				{filename: '9.jpg', focalpoint: {x:50, y:55}},
-				{filename: '10.jpg', focalpoint: {x:20, y:50}},
-				{filename: '11.jpg', focalpoint: {x:25, y:65}},
-				{filename: '12.jpg', focalpoint: {x:10, y:50}},
-				{filename: '13.jpg', focalpoint: {x:70, y:60}},
-				{filename: '14.jpg', focalpoint: {x:50, y:70}},
-				{filename: '15.jpg', focalpoint: {x:70, y:40}},
-				{filename: '16.jpg', focalpoint: {x:60, y:50}},
-				{filename: '17.jpg', focalpoint: {x:5, y:80}},
-				{filename: '18.jpg', focalpoint: {x:50, y:60}},
-				{filename: '19.jpg', focalpoint: {x:40, y:50}},
-				{filename: '20.jpg', focalpoint: {x:25, y:65}},
-				{filename: '21.jpg', focalpoint: {x:35, y:50}},
-				{filename: '22.jpg', focalpoint: {x:45, y:40}},
-				{filename: '23.jpg', focalpoint: {x:60, y:50}},
-				{filename: '24.jpg', focalpoint: {x:80, y:60}},
-				{filename: '25.jpg', focalpoint: {x:60, y:50}},
-				{filename: '26.jpg', focalpoint: {x:80, y:80}}
+				{filename: '26.jpg', focalpoint: {x:80, y:80}, category: 'landscape', title: 'Maria Schnee in Aschbach'},
+				{filename: '16.jpg', focalpoint: {x:60, y:50}, category: 'landscape', title: 'River Mincio in Peschiera del Garda'},
+				{filename: '2.jpg',  focalpoint: {x:33, y:99}, category: 'landscape', title: 'The Adige valley'},
+				{filename: '3.jpg',  focalpoint: {x:50, y:50}, category: 'landscape', title: 'Sulfner Weihe in Hafling'},
+				{filename: '4.jpg',  focalpoint: {x:45, y:80}, category: 'other',     title: 'Safety first'},
+				{filename: '5.jpg',  focalpoint: {x:20, y:50}, category: 'landscape', title: 'Sunset in Rovinj, Croatia'},
+				{filename: '6.jpg',  focalpoint: {x:55, y:45}, category: 'wildlife',  title: 'bird'},
+				{filename: '7.jpg',  focalpoint: {x:25, y:50}, category: 'landscape', title: 'Three boats and an isle'},
+				{filename: '9.jpg',  focalpoint: {x:50, y:55}, category: 'wildlife',  title: 'Crows'},
+				{filename: '10.jpg', focalpoint: {x:20, y:50}, category: 'other',     title: 'Schuetzen'},
+				{filename: '11.jpg', focalpoint: {x:25, y:65}, category: 'landscape', title: 'The lighthouse'},
+				{filename: '8.jpg',  focalpoint: {x:80, y:60}, category: 'wildlife',  title: 'Blue insect'},	
+				{filename: '12.jpg', focalpoint: {x:10, y:50}, category: 'wildlife',  title: 'Frog'},
+				{filename: '14.jpg', focalpoint: {x:50, y:70}, category: 'landscape', title: 'The black puddle'},
+				{filename: '15.jpg', focalpoint: {x:70, y:40}, category: 'other',     title: 'Canine waves'},
+				{filename: '17.jpg', focalpoint: {x:5,  y:80}, category: 'landscape', title: 'Rovinj, Croatia'},
+				{filename: '18.jpg', focalpoint: {x:50, y:60}, category: 'landscape', title: 'The castle of Solferino'},
+				{filename: '19.jpg', focalpoint: {x:40, y:50}, category: 'wildlife',  title: 'Chamois'},
+				{filename: '20.jpg', focalpoint: {x:25, y:65}, category: 'wildlife',  title: 'Little egret'},
+				{filename: '21.jpg', focalpoint: {x:35, y:50}, category: 'landscape', title: 'Barbariga, Croatia'},
+				{filename: '22.jpg', focalpoint: {x:45, y:40}, category: 'wildlife',  title: 'Green wall lizard'},
+				{filename: '23.jpg', focalpoint: {x:60, y:50}, category: 'other',     title: 'Unnamed (her)'},
+				{filename: '24.jpg', focalpoint: {x:80, y:60}, category: 'other',     title: 'Unnamed (him)'},
+				{filename: '25.jpg', focalpoint: {x:60, y:50}, category: 'landscape', title: 'The castle of Tirol'},
+				{filename: '1.jpg',  focalpoint: {x:55, y:70}, category: 'other',     title: 'Sheila'}
 			];
 
 			var i = -1;
@@ -223,9 +230,9 @@
 				}
 			}
 
-			function toggleInfo() {
-				var section = document.getElementById('section_Info');
-				section.style.opacity = section.style.opacity > 0 ? 0 : 0.8;
+			function toggleElement(elementId) {
+				var element = document.getElementById(elementId);
+				element.style.opacity = element.style.opacity > 0 ? 0 : 0.8;
 			}
 
 			document.onkeydown = function(e) {
@@ -263,7 +270,7 @@
 				This website works best if you turn your device in landscape mode.
 			</p>
 		</section>
-		<section id="section_Info">
+		<section id="section_Info" class="overlay">
 			<main>
 				<section>
 					<img src="https://avatars3.githubusercontent.com/u/4563795" class="left">
@@ -283,7 +290,13 @@
 				</section>
 			</main>
 		</section>
-
+		<section id="section_Filters" class="overlay">
+			<main>
+				<label><input type="checkbox"> landscape</label><br>
+				<label><input type="checkbox"> wildlife</label><br>
+				<label><input type="checkbox"> other</label>
+			</main>
+		</section>
 		<nav id="mainNav">
 			<div class="controls">
 				<button type="button" onclick="changePicture(-1)">
@@ -292,7 +305,7 @@
 						<polygon points="10 10, 20 5, 20 15" style="fill:white;" />
 					</svg>
 				</button>
-				<button type="button" onclick="toggleInfo()">
+				<button type="button" onclick="toggleElement('section_Info')">
 					<svg width="20" height="20">
 						<circle cx="10" cy="2" r="2" fill="white" />
 						<polygon points="7 7, 11 7, 11 17, 13 17, 13 18, 7 18, 7 17, 9 17, 9 8, 7 8" style="fill:white;" />
@@ -304,6 +317,11 @@
 						<polygon points="4 17, 16 17, 16 20, 4 20" style="fill:white;" />
 					</svg>
 				</a>
+				<button type="button" onclick="toggleElement('section_Filters')">
+					<svg width="20" height="20">
+						<polygon points="2 2, 2 5, 8 11, 8 20, 11 18, 11 11, 17 5, 17 2" style="fill:white;" />
+					</svg>
+				</button>
 				<button type="button" onclick="togglePlay()">
 					<svg width="20" height="20" id="icon_Pause" style="display: inline;">
 						<polygon points="4 2, 8 2, 8 18, 4 18" style="fill:white;" />
