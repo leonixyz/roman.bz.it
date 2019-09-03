@@ -77,7 +77,7 @@
 				padding-top: 1em;
 			}
 
-			#section_Filters main {
+			#section_Filters section {
 				position: absolute;
 				bottom: 0;
 				left: 50%;
@@ -153,7 +153,7 @@
 				height = 700;
 			} 
 
-			var pictures = [
+			var _pictures = [
 				{filename: '26.jpg', focalpoint: {x:80, y:80}, category: 'landscape', title: 'Maria Schnee in Aschbach'},
 				{filename: '16.jpg', focalpoint: {x:60, y:50}, category: 'landscape', title: 'River Mincio in Peschiera del Garda'},
 				{filename: '2.jpg',  focalpoint: {x:33, y:99}, category: 'landscape', title: 'The Adige valley'},
@@ -180,6 +180,7 @@
 				{filename: '25.jpg', focalpoint: {x:60, y:50}, category: 'landscape', title: 'The castle of Tirol'},
 				{filename: '1.jpg',  focalpoint: {x:55, y:70}, category: 'other',     title: 'Sheila'}
 			];
+            var pictures = JSON.parse(JSON.stringify(_pictures));
 
 			var i = -1;
 
@@ -254,6 +255,29 @@
 				}
 				e.preventDefault();
 			}
+
+            function filterImages() {
+                var categories = [];
+                document.querySelectorAll('input.filter').forEach(function(filter) {
+                    if(filter.checked) {
+                        categories.push(filter.getAttribute('data-target'));
+                    }
+                });
+                
+                var newPictures = [];
+                for(var i = 0; i < _pictures.length; i++) {
+                    if(categories.indexOf(_pictures[i].category) > -1) {
+                        newPictures.push(_pictures[i]);
+                    }
+                }
+
+                pictures = newPictures;
+                if(pictures.length == 0) {
+                    pictures.push({filename: '', focalpoint: {x: 0, y:0}, category: '', title: ''});
+                }
+                
+                changePicture(1);
+            }
 		</script>
 	</head>
 	<body>
@@ -291,11 +315,11 @@
 			</main>
 		</section>
 		<section id="section_Filters" class="overlay">
-			<main>
-				<label><input type="checkbox"> landscape</label><br>
-				<label><input type="checkbox"> wildlife</label><br>
-				<label><input type="checkbox"> other</label>
-			</main>
+			<section>
+				<label><input type="checkbox" checked class="filter" data-target="landscape"> landscape</label><br>
+				<label><input type="checkbox" checked class="filter" data-target="wildlife"> wildlife</label><br>
+                <label><input type="checkbox" checked class="filter" data-target="other"> other</label><br>
+			</section>
 		</section>
 		<nav id="mainNav">
 			<div class="controls">
@@ -317,7 +341,7 @@
 						<polygon points="4 17, 16 17, 16 20, 4 20" style="fill:white;" />
 					</svg>
 				</a>
-				<button type="button" onclick="toggleElement('section_Filters')">
+				<button type="button" onclick="toggleElement('section_Filters'); filterImages()">
 					<svg width="20" height="20">
 						<polygon points="2 2, 2 5, 8 11, 8 20, 11 18, 11 11, 17 5, 17 2" style="fill:white;" />
 					</svg>
