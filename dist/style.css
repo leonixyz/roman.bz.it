@@ -1,0 +1,33 @@
+
+    * {
+      box-sizing: border-box;
+    }
+    
+    html, body {
+      padding: 0;
+      margin: 0;
+
+      -ms-word-break: break-all;
+      word-break: break-all;
+      word-break: break-word;
+
+      -webkit-hyphens: auto;
+      -moz-hyphens: auto;
+      hyphens: auto;
+    }
+
+    main {
+      padding: 1rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    address {
+      white-space: pre-line;
+    }
+
+    .scrambled {
+      direction: rtl;
+      unicode-bidi:bidi-override;
+    }
+
