@@ -3,8 +3,8 @@ const path = require('path');
 module.exports = {
   entry: './src/index.js',
   output: {
-    filename: './dist/main.js',
-    path: path.resolve(__dirname, '.'),
+    filename: 'main.js',
+    path: path.join(__dirname, 'dist'),
   },
   module: {
     rules: [
@@ -13,5 +13,10 @@ module.exports = {
         use: 'raw-loader',
       },
     ]
+  },
+  devServer: {
+    publicPath: '/',
+    contentBase: './dist',
+    hot: true
   }
 };
