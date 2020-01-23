@@ -7,7 +7,7 @@ const encrypt = (plainText, keyString) => {
     const c = b ^ key[i & key.length];
     bytes[i] = c;
   });
-  
+
   return bytes;
 };
 
@@ -18,7 +18,7 @@ const decrypt = (cypherText, keyString) => {
     const p = b ^ key[i & key.length];
     plainText += String.fromCharCode(p);
   });
-  
+
   return plainText;
 };
 
@@ -31,7 +31,7 @@ const decrypt = (cypherText, keyString) => {
 
     links.forEach(link => {
       const key = KEY || document.location.host;
-      
+
       if (link.getAttribute('data-plaintext')) {
         const plain = link.getAttribute('data-plaintext');
         const cypher = encrypt(plain, key);
